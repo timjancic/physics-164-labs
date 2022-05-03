@@ -1,15 +1,15 @@
 # Astrometry from CCD Images (lab3)
 
-Abstract
+## Abstract
 
 Astrometry is one of the most useful tools to astronomers as it allows for measurements of motion, distance, and much more. This report uses astrometry to calculate the aberrations in the lenses on the Nickel 1m Telescope at Lick Observatory by comparing centroids of measured stars with that of the vizier catalog. We also use astrometry to calculate the positions of the asteroids Metis and Polyhymnia. The positions are calculated over multiple hours so that the proper motion can be derived. The total proper motion of Metis was found to be 23.80 arcseconds per hour while Polyhymnia was much slower with a proper motion of 2.274 arcseconds per hour. While the error was not properly counted, the residuals of the measurements average about 10^(-4) degrees or about 0.4 arcseconds which is very precise. The measurements of the coordinates also seemed to agree with their actual predicted values of the asteroids.
 
 
-1. Introduction
+## 1. Introduction
 
 	Many celestial objects are so far away that they hardly seem to move at all from our reference. There are, however, much closer stars and objects in our solar system that move across the celestial sphere. Finding the motion of these objects is very important in astronomy. Knowing the motion of an object leads to information about that object such as its mass and how it is affected by the gravity of nearby objects. In the case of asteroids in the asteroid belt, which is what we’ll be observing, the motion can tell us information about how the solar system was formed. While we can measure the radial velocity (the speed that is going directly towards or away relative to earth) of an object by using the doppler shift on the object’s elemental spectrum, we must use astrometry to find out the proper motion (how it moves across the sky). Astrometry uses a reference frame of stars that we know the coordinates of and are also considered motionless. If an object changes position relative to these stars, we can calculate its right ascension and declination at each point to find its proper motion. This is exactly what we will be doing in this lab. We will observe two different asteroids, Polyhymnia and Metis, over multiple hours to calculate their proper motion across the sky. This lab also focuses on accounting for the aberrations of the lenses. If we consider these distortions constant, we can use the method of linear least squares to find the plate constants of the telescope to properly translate from pixel coordinates to celestial coordinates.
 
-2. Observations and Data
+## 2. Observations and Data
 
 Data was gathered using a remote access lab that controlled the Nickel 1-Meter Telescope at Lick Observatory near San Jose. The usual bias and flat frames were taken. The bias frames were taken by doing a 0 second closed shutter exposure. The flat frames were exposures of an evenly illuminated part of the observatory at varying times and using various filters. Most of the images taken of the asteroids are in the red filter. These images were also varied in exposure time (anywhere from 3 to 60 seconds). The reason for this is that in order to effectively use astrometry to calculate the RA (Right Ascension) and Dec (Declination), we want as many background stars as possible. However, if we take too long of an exposure, then the brighter stars and the asteroid itself saturate and can no longer be used to calculate their pixel positions. For this reason, deep field (long exposures) and shallow field frames (short exposures) were taken for each measurement of an asteroid (Figure 1). 
 
@@ -17,13 +17,13 @@ Data was gathered using a remote access lab that controlled the Nickel 1-Meter T
 
 The asteroids observed were picked based on their visibility the night of the observation. Objects that have an absolute hour angle greater than 3 hours generally have too much atmosphere between it and us. The closer to the zenith an object is, the more clearly we can observe it without a large atmospheric column density getting in the way. This in mind, Metis and Polyhymnia were the best candidates for the night. 
 
-3. Data Reduction & Methods
+## 3. Data Reduction & Methods
 
 As always, before using our data, we must reduce the images down for more accurate measurements. First we want to take the average per pixel of the bias frames so we get the most general bias to subtract from both our science images and our flat images. Next we categorize our flats by filter, since different filters have different effects on the image (Figure 2). Each flat can then be normalized by dividing by the median value of the whole image. If the CCD (Charge-Coupled Device) doesn’t have any broken pixels, then the science frame we are using can be bias subtracted and divided by the normalized flat. However, our CCD has broken pixels that will be zero after bias subtracting as shown in Figure 2. Dividing by this would cause an error, so we ignore the entire column by setting it equal to the median of the flat image. Once this is done, we have a fully reduced science frame. 
  
 ![Image](https://github.com/timjancic/physics-164-labs/blob/main/Lab3%20figures%20and%20tables/f2.jpg?raw=true)
 
-4. Calculations & Modeling
+## 4. Calculations & Modeling
 
 With our reduced data, we need a way to quickly calculate the pixel positions of the stars in our image for reference. Doing this in one dimension (as with a spectrograph) is simple since we can easily see where there are peaks on the graph, the peaks indicating stars. Peaks in two dimensions can be handled similarly. As shown in Figure 3, there are peaks that we can break it down into the x and y coordinates. What we can then do is go through each row and column and find the peaks. The coordinates or the rows and columns that match are our star peaks (see Appendix 1). We also double check if there are a minimum number of “bright” pixels around the peak. Bright pixels being defined as some multiple of the median value of the frame, usually twice the median. 
 
@@ -87,6 +87,6 @@ From these slopes we can calculate the total proper motion of each asteroid. Sho
 
 ![Image](https://github.com/timjancic/physics-164-labs/blob/main/Lab3%20figures%20and%20tables/t2.jpg?raw=true)
 
-5. Discussion
+## 5. Discussion
 
 In this lab we showed how effective astrometry is. From background stars you can identify the distortions in your own telescope as well as calculate the positions of asteroids. Most of the data seemed to be precise. However, there still was one asteroid measurement that seemed to be far off. During the second periodic measurement of Polyhymnia, there must have been a shift in the direction of the telescope. The residuals from the calculated stars and the catalog stars were still very small, so it implies that there must have been a systematic error to get the shift we see in Figure 7. The RMS of the residuals was calculated as opposed to actual error which means that we don’t have a proper estimate of the error, but because the residuals are so small it implies that the data taken was precise. The proper motion of Metis was 23.80 arcseconds per hour, which might be fast, but to show how slowly that moves across the sky, the moon moves at a rate of about 1800 arcseconds per hour. If we observed the asteroids more frequently and calculated the magnitude at each point, we could also predict it’s period of rotation and possibly what shape they are, neither of which are spherical since they are so small (Metis is about 100km and Polyhymnia is about 50km in diameter)

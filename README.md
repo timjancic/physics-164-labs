@@ -13,7 +13,7 @@ Astrometry is one of the most useful tools to astronomers as it allows for measu
 
 	Data was gathered using a remote access lab that controlled the Nickel 1-Meter Telescope at Lick Observatory near San Jose. The usual bias and flat frames were taken. The bias frames were taken by doing a 0 second closed shutter exposure. The flat frames were exposures of an evenly illuminated part of the observatory at varying times and using various filters. Most of the images taken of the asteroids are in the red filter. These images were also varied in exposure time (anywhere from 3 to 60 seconds). The reason for this is that in order to effectively use astrometry to calculate the RA (Right Ascension) and Dec (Declination), we want as many background stars as possible. However, if we take too long of an exposure, then the brighter stars and the asteroid itself saturate and can no longer be used to calculate their pixel positions. For this reason, deep field (long exposures) and shallow field frames (short exposures) were taken for each measurement of an asteroid (Figure 1). 
 
-![Image](https://imgur.com/iV5PYFO)
+![Image](https://raw.githubusercontent.com/timjancic/physics-164-labs/main/Lab3%20figures%20and%20tables/f1.jpg)
 Figure 1: Example images of Metis: Left, 3 second exposure. Right, 30 second exposure
 
 	The asteroids observed were picked based on their visibility the night of the observation. Objects that have an absolute hour angle greater than 3 hours generally have too much atmosphere between it and us. The closer to the zenith an object is, the more clearly we can observe it without a large atmospheric column density getting in the way. This in mind, Metis and Polyhymnia were the best candidates for the night. 

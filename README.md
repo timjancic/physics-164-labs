@@ -11,11 +11,11 @@ Astrometry is one of the most useful tools to astronomers as it allows for measu
 
 2. Observations and Data
 
-	Data was gathered using a remote access lab that controlled the Nickel 1-Meter Telescope at Lick Observatory near San Jose. The usual bias and flat frames were taken. The bias frames were taken by doing a 0 second closed shutter exposure. The flat frames were exposures of an evenly illuminated part of the observatory at varying times and using various filters. Most of the images taken of the asteroids are in the red filter. These images were also varied in exposure time (anywhere from 3 to 60 seconds). The reason for this is that in order to effectively use astrometry to calculate the RA (Right Ascension) and Dec (Declination), we want as many background stars as possible. However, if we take too long of an exposure, then the brighter stars and the asteroid itself saturate and can no longer be used to calculate their pixel positions. For this reason, deep field (long exposures) and shallow field frames (short exposures) were taken for each measurement of an asteroid (Figure 1). 
+Data was gathered using a remote access lab that controlled the Nickel 1-Meter Telescope at Lick Observatory near San Jose. The usual bias and flat frames were taken. The bias frames were taken by doing a 0 second closed shutter exposure. The flat frames were exposures of an evenly illuminated part of the observatory at varying times and using various filters. Most of the images taken of the asteroids are in the red filter. These images were also varied in exposure time (anywhere from 3 to 60 seconds). The reason for this is that in order to effectively use astrometry to calculate the RA (Right Ascension) and Dec (Declination), we want as many background stars as possible. However, if we take too long of an exposure, then the brighter stars and the asteroid itself saturate and can no longer be used to calculate their pixel positions. For this reason, deep field (long exposures) and shallow field frames (short exposures) were taken for each measurement of an asteroid (Figure 1). 
 
 ![Image](https://raw.githubusercontent.com/timjancic/physics-164-labs/main/Lab3%20figures%20and%20tables/f1.jpg)
 
-	The asteroids observed were picked based on their visibility the night of the observation. Objects that have an absolute hour angle greater than 3 hours generally have too much atmosphere between it and us. The closer to the zenith an object is, the more clearly we can observe it without a large atmospheric column density getting in the way. This in mind, Metis and Polyhymnia were the best candidates for the night. 
+The asteroids observed were picked based on their visibility the night of the observation. Objects that have an absolute hour angle greater than 3 hours generally have too much atmosphere between it and us. The closer to the zenith an object is, the more clearly we can observe it without a large atmospheric column density getting in the way. This in mind, Metis and Polyhymnia were the best candidates for the night. 
 
 3. Data Reduction & Methods
 
@@ -25,11 +25,11 @@ As always, before using our data, we must reduce the images down for more accura
 
 4. Calculations & Modeling
 
-	With our reduced data, we need a way to quickly calculate the pixel positions of the stars in our image for reference. Doing this in one dimension (as with a spectrograph) is simple since we can easily see where there are peaks on the graph, the peaks indicating stars. Peaks in two dimensions can be handled similarly. As shown in Figure 3, there are peaks that we can break it down into the x and y coordinates. What we can then do is go through each row and column and find the peaks. The coordinates or the rows and columns that match are our star peaks (see Appendix 1). We also double check if there are a minimum number of “bright” pixels around the peak. Bright pixels being defined as some multiple of the median value of the frame, usually twice the median. 
+With our reduced data, we need a way to quickly calculate the pixel positions of the stars in our image for reference. Doing this in one dimension (as with a spectrograph) is simple since we can easily see where there are peaks on the graph, the peaks indicating stars. Peaks in two dimensions can be handled similarly. As shown in Figure 3, there are peaks that we can break it down into the x and y coordinates. What we can then do is go through each row and column and find the peaks. The coordinates or the rows and columns that match are our star peaks (see Appendix 1). We also double check if there are a minimum number of “bright” pixels around the peak. Bright pixels being defined as some multiple of the median value of the frame, usually twice the median. 
 
 ![Image](https://github.com/timjancic/physics-164-labs/blob/main/Lab3%20figures%20and%20tables/f3.jpg?raw=true)
 
-	Once we have the peaks in terms of integer pixels, we want to find the actual centroid location of the star since it will not be perfectly centered on a pixel. We do this by using Equation 1. We can also calculate the error in the centroid using Equation 2.
+Once we have the peaks in terms of integer pixels, we want to find the actual centroid location of the star since it will not be perfectly centered on a pixel. We do this by using Equation 1. We can also calculate the error in the centroid using Equation 2.
 	
 ![Image](https://github.com/timjancic/physics-164-labs/blob/main/Lab3%20figures%20and%20tables/e1e2.jpg?raw=true)
 
@@ -37,7 +37,7 @@ where, p∈x,y is the position coordinate and I_p is the intensity at position p
 
 ![Image](https://github.com/timjancic/physics-164-labs/blob/main/Lab3%20figures%20and%20tables/t1.jpg?raw=true)
 
-	To translate these centroids to celestial coordinates, we first need to match them with the proper stars. To do this, we use vizier to get a catalog of stars near our RA and Dec, specifying the limiting magnitude and field of view. What we get is shown in Figure 4. It’s a bit of a mess, but if we translate the RA and Dec of the cataloged stars to standard coordinates (radians in spherical coordinates around the unit sphere) and translate that to pixels, we can get a better idea of which stars go with which. This translation is shown in equations 3 and 4. This is for reference only, however, since we will translate from standard to celestial assuming that the lenses in the telescope are ideal.
+To translate these centroids to celestial coordinates, we first need to match them with the proper stars. To do this, we use vizier to get a catalog of stars near our RA and Dec, specifying the limiting magnitude and field of view. What we get is shown in Figure 4. It’s a bit of a mess, but if we translate the RA and Dec of the cataloged stars to standard coordinates (radians in spherical coordinates around the unit sphere) and translate that to pixels, we can get a better idea of which stars go with which. This translation is shown in equations 3 and 4. This is for reference only, however, since we will translate from standard to celestial assuming that the lenses in the telescope are ideal.
 
 ![Image](https://github.com/timjancic/physics-164-labs/blob/main/Lab3%20figures%20and%20tables/e3.jpg?raw=true)
 
@@ -49,7 +49,7 @@ Where x and y are the pixel locations, f is the focal length (16,840mm for the N
 
 ![Image](https://github.com/timjancic/physics-164-labs/blob/main/Lab3%20figures%20and%20tables/f4.jpg?raw=true)
 
-	Knowing the true RA and Dec of our pictured stars allows us to calculate the aberrations and distortion in our lenses. We calculate the so-called plate constants that will help translate from on coordinate system to another using a linear least squares method. Assuming the plate constants are in fact constant, then all types of distortion (Translation, shear, rotation, and magnification) can be accounted for and solved for in the matrix in Equation 5.
+Knowing the true RA and Dec of our pictured stars allows us to calculate the aberrations and distortion in our lenses. We calculate the so-called plate constants that will help translate from on coordinate system to another using a linear least squares method. Assuming the plate constants are in fact constant, then all types of distortion (Translation, shear, rotation, and magnification) can be accounted for and solved for in the matrix in Equation 5.
 
 ![Image](https://github.com/timjancic/physics-164-labs/blob/main/Lab3%20figures%20and%20tables/e5.jpg?raw=true)
 
@@ -66,19 +66,20 @@ where
 ![Image](https://github.com/timjancic/physics-164-labs/blob/main/Lab3%20figures%20and%20tables/e7.2.jpg?raw=true)
 
 and similarly for y. Once we solve the equations for x and y, then we can simply multiply both sides of Equation 6 by  T^(-1). To minimize error, we’ll calculate the plate constants for the different periods the asteroids are observed. An example getting from peaks to celestial coordinates is shown in Figure 5. The residuals from the Figure 5 measurements are shown in Figure 6.
-
   
 ![Image](https://github.com/timjancic/physics-164-labs/blob/main/Lab3%20figures%20and%20tables/f5.jpg?raw=true)
 
 ![Image](https://github.com/timjancic/physics-164-labs/blob/main/Lab3%20figures%20and%20tables/f6.jpg?raw=true)
 
 Most of the measured stars have an error under 1 arcsecond except for that star at the end. That star is the two bright stars closest to the center of the Figure 5 left. Because these two stars are cataloged as one star, the calculated coordinates must have ended up somewhere between the two stars. This means that no matter what we do or which of the two we choose, the measured RA and Dec will always be farther off from the cataloged value, so we’ll scrap that data point for now. 
-	Each asteroid was recorded at different times, Polyhymnia was observed at four different times and Metis three. Following the above procedure for all these asteroids, we can plot their positions as they move across our field of view as shown in Figure 7.
+
+Each asteroid was recorded at different times, Polyhymnia was observed at four different times and Metis three. Following the above procedure for all these asteroids, we can plot their positions as they move across our field of view as shown in Figure 7.
   
 ![Image](https://github.com/timjancic/physics-164-labs/blob/main/Lab3%20figures%20and%20tables/f7.jpg?raw=true)
 
 In the Polyhymnia image, one of the asteroid positions is far off from the line that the other three are forming, so we will remove that data point when calculating the proper motion. 
-	Now we can calculate the proper motion of each asteroid. Instead of using a linear least squares fit, there are only three points for each so we will use the slope between the two far points. The motion on each axis of each asteroid is shown in Figure 8.
+
+Now we can calculate the proper motion of each asteroid. Instead of using a linear least squares fit, there are only three points for each so we will use the slope between the two far points. The motion on each axis of each asteroid is shown in Figure 8.
 
 ![Image](https://github.com/timjancic/physics-164-labs/blob/main/Lab3%20figures%20and%20tables/f8.jpg?raw=true)
 

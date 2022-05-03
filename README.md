@@ -1,4 +1,4 @@
-# Astrometry from CCD Images
+# Astrometry from CCD Images (lab3)
 
 Abstract
 
